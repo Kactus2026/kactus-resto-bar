@@ -9,7 +9,7 @@
 
   /* ---------- NÚMERO DE WHATSAPP DEL LOCAL ---------- */
   // Reemplazar el número de ejemplo en formato internacional sin "+" ni espacios.
-  const WHATSAPP_NUMERO = "5492644889471";
+  const WHATSAPP_NUMERO = "5492645327261";
   const ALIAS_MERCADOPAGO = "Kactusresto";
 
   /* ---------- ESTADO ---------- */
