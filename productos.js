@@ -63,6 +63,11 @@ const REAL = {
   chorrillana: "imagenes/chorrillana.jpg",
   empanadasCarne: "imagenes/empanadas-carne.jpg",
   empanadasJamonQueso: "imagenes/empanadas-jamonqueso.jpg",
+  lomoEspecial: "imagenes/lomo-especial.jpg",
+  lomoCompleto: "imagenes/lomo-completo.jpg",
+  lomoKactus: "imagenes/lomo-kactus.jpg",
+  lomoSuper: "imagenes/lomo-super.jpg",
+  lomoVegetariano: "imagenes/lomo-vegetariano.jpg",
 };
 
 const CATEGORIAS = [
@@ -227,11 +232,11 @@ const PRODUCTOS = [
   { id: "pachata-cheddar", categoria: "pachatas", nombre: "Cheddar", descripcion: "Pachata con abundante salsa cheddar.", precio: 15800, imagen: REAL.pachataGenerica },
 
   /* ================= LOMOS ================= */
-  { id: "lomo-especial", categoria: "lomos", nombre: "Especial", descripcion: "Lomito con jamón, queso, lechuga y tomate.", precio: 17500, imagen: PLACEHOLDER.lomito },
-  { id: "lomo-completo", categoria: "lomos", nombre: "Completo", descripcion: "Lomito con jamón, queso, huevo, lechuga y tomate.", precio: 18000, imagen: PLACEHOLDER.lomito, destacado: true, etiqueta: "Más pedido" },
-  { id: "lomo-kactus", categoria: "lomos", nombre: "Kactus", descripcion: "El lomito de la casa, con todos los toppings.", precio: 19000, imagen: PLACEHOLDER.lomito, etiqueta: "Recomendado" },
-  { id: "lomo-super", categoria: "lomos", nombre: "Super Lomo", descripcion: "Doble carne, doble queso y todos los toppings.", precio: 26000, imagen: PLACEHOLDER.lomito },
-  { id: "lomo-vegetariano", categoria: "lomos", nombre: "Vegetariano", descripcion: "Lomito vegetariano con lechuga, tomate y salsa.", precio: 9500, imagen: PLACEHOLDER.lomito },
+  { id: "lomo-especial", categoria: "lomos", nombre: "Especial", descripcion: "Lomito con jamón, queso, lechuga y tomate.", precio: 17500, imagen: REAL.lomoEspecial },
+  { id: "lomo-completo", categoria: "lomos", nombre: "Completo", descripcion: "Lomito con jamón, queso, huevo, lechuga y tomate.", precio: 18000, imagen: REAL.lomoCompleto, destacado: true, etiqueta: "Más pedido" },
+  { id: "lomo-kactus", categoria: "lomos", nombre: "Kactus", descripcion: "El lomito de la casa, con todos los toppings.", precio: 19000, imagen: REAL.lomoKactus, etiqueta: "Recomendado" },
+  { id: "lomo-super", categoria: "lomos", nombre: "Super Lomo", descripcion: "Doble carne, doble queso y todos los toppings.", precio: 26000, imagen: REAL.lomoSuper },
+  { id: "lomo-vegetariano", categoria: "lomos", nombre: "Vegetariano", descripcion: "Lomito vegetariano con lechuga, tomate y salsa.", precio: 9500, imagen: REAL.lomoVegetariano },
 
   /* ================= PIZZAS ================= */
   { id: "pizza-especial", categoria: "pizzas", nombre: "Especial (grande)", descripcion: "Pizza especial de la casa, tamaño grande.", precio: 14300, imagen: REAL.pizzaEspecial },
