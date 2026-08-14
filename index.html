@@ -177,41 +177,55 @@
 
     <div class="campo">
       <label for="campoNombre">Nombre</label>
-      <input type="text" id="campoNombre" placeholder="Tu nombre" required>
+      <input type="text" id="campoNombre" placeholder="Tu nombre" autocomplete="off" required>
     </div>
     <div class="campo">
       <label for="campoApellido">Apellido</label>
-      <input type="text" id="campoApellido" placeholder="Tu apellido" required>
+      <input type="text" id="campoApellido" placeholder="Tu apellido" autocomplete="off" required>
     </div>
     <div class="campo">
       <label for="campoTelefono">Teléfono</label>
-      <input type="tel" id="campoTelefono" placeholder="Ej: 264 555 1234" required>
+      <input type="tel" id="campoTelefono" placeholder="Ej: 264 555 1234" autocomplete="off" required>
     </div>
+
     <div class="campo">
-      <label for="campoDireccion">Dirección</label>
-      <input type="text" id="campoDireccion" placeholder="Calle y número" required>
+      <label>Tipo de pedido</label>
+      <div class="metodo-pago">
+        <label><input type="radio" name="entrega" value="Retira en el local" autocomplete="off" checked><span>🏠 Retiro en el local</span></label>
+        <label><input type="radio" name="entrega" value="Envío a domicilio" autocomplete="off"><span>🛵 Envío a domicilio</span></label>
+      </div>
     </div>
-    <div class="campo">
-      <label for="campoBarrio">Barrio</label>
-      <input type="text" id="campoBarrio" placeholder="Tu barrio" required>
-    </div>
-    <div class="campo">
-      <label for="campoReferencia">Referencia del domicilio</label>
-      <input type="text" id="campoReferencia" placeholder="Ej: casa azul, portón negro">
+
+    <div id="bloqueDireccion" class="oculto">
+      <div class="campo">
+        <label for="campoDireccion">Dirección</label>
+        <input type="text" id="campoDireccion" placeholder="Calle y número" autocomplete="off">
+      </div>
+      <div class="campo">
+        <label for="campoBarrio">Barrio</label>
+        <input type="text" id="campoBarrio" placeholder="Tu barrio" autocomplete="off">
+      </div>
+      <div class="campo">
+        <label for="campoReferencia">Referencia del domicilio</label>
+        <input type="text" id="campoReferencia" placeholder="Ej: casa azul, portón negro" autocomplete="off">
+      </div>
+      <p style="font-size:0.72rem; color:var(--color-texto-suave); margin-top:-6px; margin-bottom:14px;">
+        El costo del envío se coordina por WhatsApp según la zona.
+      </p>
     </div>
 
     <div class="campo">
       <label>Método de pago</label>
       <div class="metodo-pago">
-        <label><input type="radio" name="pago" value="Efectivo" checked><span>💵 Efectivo</span></label>
-        <label><input type="radio" name="pago" value="Transferencia"><span>🏦 Transferencia</span></label>
-        <label><input type="radio" name="pago" value="Mercado Pago"><span>📲 Mercado Pago</span></label>
+        <label><input type="radio" name="pago" value="Efectivo" autocomplete="off" checked><span>💵 Efectivo</span></label>
+        <label><input type="radio" name="pago" value="Transferencia" autocomplete="off"><span>🏦 Transferencia</span></label>
+        <label><input type="radio" name="pago" value="Mercado Pago" autocomplete="off"><span>📲 Mercado Pago</span></label>
       </div>
     </div>
 
     <div class="campo oculto" id="campoConCuantoWrap">
       <label for="campoConCuanto">¿Con cuánto pagás?</label>
-      <input type="text" id="campoConCuanto" placeholder="Ej: $50.000">
+      <input type="text" id="campoConCuanto" placeholder="Ej: $50.000" autocomplete="off">
     </div>
 
     <div class="modal-confirm__acciones" style="margin-top:14px;">

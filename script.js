@@ -382,8 +382,30 @@
   /* ==========================================================================
      ENVÍO DEL PEDIDO POR WHATSAPP
      ========================================================================== */
+  function limpiarFormularioDatos() {
+    // Vacía el formulario siempre: evita que quede un pedido anterior
+    // precargado (por autocompletado del navegador) para el próximo cliente.
+    ["campoNombre", "campoApellido", "campoTelefono", "campoDireccion",
+     "campoBarrio", "campoReferencia", "campoConCuanto"].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+    const radioLocal = $('input[name="entrega"][value="Retira en el local"]');
+    if (radioLocal) radioLocal.checked = true;
+    const radioEfectivo = $('input[name="pago"][value="Efectivo"]');
+    if (radioEfectivo) radioEfectivo.checked = true;
+    $("#bloqueDireccion").classList.add("oculto");
+    $("#campoConCuantoWrap").classList.add("oculto");
+  }
+
+  function actualizarVisibilidadDireccion() {
+    const entrega = $('input[name="entrega"]:checked').value;
+    $("#bloqueDireccion").classList.toggle("oculto", entrega !== "Envío a domicilio");
+  }
+
   function abrirModalDatos() {
     if (totalItems() === 0) return;
+    limpiarFormularioDatos();
     $("#modalDatos").classList.add("visible");
   }
   function cerrarModalDatos() { $("#modalDatos").classList.remove("visible"); }
@@ -406,12 +428,14 @@
       "",
       `*Cliente:* ${datos.nombre} ${datos.apellido}`,
       `*Teléfono:* ${datos.telefono}`,
-      `*Dirección:* ${datos.direccion}`,
-      `*Barrio:* ${datos.barrio}`,
+      `*Tipo de pedido:* ${datos.entrega}`,
     ];
 
-    if (datos.referencia) {
-      partes.push(`*Referencia:* ${datos.referencia}`);
+    if (datos.entrega === "Envío a domicilio") {
+      partes.push(`*Dirección:* ${datos.direccion}`, `*Barrio:* ${datos.barrio}`);
+      if (datos.referencia) {
+        partes.push(`*Referencia:* ${datos.referencia}`);
+      }
     }
 
     partes.push(`*Pago:* ${pago}`);
@@ -435,23 +459,29 @@
     const nombre = $("#campoNombre").value.trim();
     const apellido = $("#campoApellido").value.trim();
     const telefono = $("#campoTelefono").value.trim();
+    const entrega = $('input[name="entrega"]:checked').value;
     const direccion = $("#campoDireccion").value.trim();
     const barrio = $("#campoBarrio").value.trim();
     const referencia = $("#campoReferencia").value.trim();
     const pago = $('input[name="pago"]:checked').value;
     const conCuanto = $("#campoConCuanto").value.trim();
 
-    if (!nombre || !apellido || !telefono || !direccion || !barrio) {
+    if (!nombre || !apellido || !telefono) {
       mostrarToast("Completá todos los campos obligatorios");
       return;
     }
+    if (entrega === "Envío a domicilio" && (!direccion || !barrio)) {
+      mostrarToast("Completá la dirección y el barrio para el envío");
+      return;
+    }
 
-    const datos = { nombre, apellido, telefono, direccion, barrio, referencia, pago, conCuanto };
+    const datos = { nombre, apellido, telefono, entrega, direccion, barrio, referencia, pago, conCuanto };
     const mensaje = construirMensajeWhatsApp(datos);
     const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensaje)}`;
 
     window.open(url, "_blank");
     cerrarModalDatos();
+    limpiarFormularioDatos();
   }
 
   /* ==========================================================================
@@ -482,7 +512,7 @@
     // Abrir / cerrar drawer
     $("#barraCarrito").addEventListener("click", abrirDrawer);
     $("#btnCerrarDrawer").addEventListener("click", cerrarDrawer);
-    $("#overlay").addEventListener("click", () => { cerrarDrawer(); cerrarModalVaciar(); cerrarModalDatos(); });
+    $("#overlay").addEventListener("click", () => { cerrarDrawer(); cerrarModalVaciar(); cerrarModalDatos(); limpiarFormularioDatos(); });
 
     // Vaciar carrito
     document.addEventListener("click", (e) => {
@@ -493,8 +523,13 @@
 
     // Enviar pedido -> abre modal de datos
     $("#btnEnviarPedido").addEventListener("click", abrirModalDatos);
-    $("#btnCancelarDatos").addEventListener("click", cerrarModalDatos);
+    $("#btnCancelarDatos").addEventListener("click", () => { cerrarModalDatos(); limpiarFormularioDatos(); });
     $("#btnConfirmarDatos").addEventListener("click", validarYEnviarPedido);
+
+    // Mostrar/ocultar dirección según tipo de pedido (retiro o envío)
+    $$('input[name="entrega"]').forEach((radio) => {
+      radio.addEventListener("change", actualizarVisibilidadDireccion);
+    });
 
     // Mostrar/ocultar "¿con cuánto pagás?" según método de pago
     $$('input[name="pago"]').forEach((radio) => {
@@ -518,7 +553,7 @@
 
     // Cerrar modales con Escape
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") { cerrarDrawer(); cerrarModalVaciar(); cerrarModalDatos(); }
+      if (e.key === "Escape") { cerrarDrawer(); cerrarModalVaciar(); cerrarModalDatos(); limpiarFormularioDatos(); }
     });
   }
 
